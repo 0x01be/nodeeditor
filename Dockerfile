@@ -1,19 +1,20 @@
-FROM alpine as build
+FROM 0x01be/nodeeditor:build as build
 
-RUN apk add --no-cache --virtual nodeeditor-build-dependencies \
-    git \
-    build-base \
-    cmake \
-    qt5-qtbase-dev \
-    qt5-qttools-dev \
-    catch2
+FROM 0x01be/xpra
 
-ENV NODEEDITOR_REVISION master
-RUN git clone --depth 1 --branch ${NODEEDITOR_REVISION} https://github.com/paceholder/nodeeditor.git /nodeeditor
-WORKDIR /nodeeditor/build
-RUN cmake \
-    -DCMAKE_INSTALL_PREFIX=/opt/nodeetitor \
-    ..
-RUN make
-RUN make install
+COPY --from=build /opt/nodeetitor/ /opt/nodeeditor/
+
+USER root
+RUN apk add --no-cache --virtual nodeeditor-runtime-dependencies \
+    qt5-qtbase \
+    qt5-qttools \
+    mesa-dri-swrast
+
+COPY --from=build /nodeeditor/build/bin/ /opt/nodeeditor/bin/
+
+USER xpra
+
+ENV PATH ${PATH}:/opt/nodeeditor/bin/
+
+ENV COMMAND calculator
 
