@@ -2,7 +2,7 @@ FROM 0x01be/nodeeditor:build as build
 
 FROM 0x01be/xpra
 
-COPY --from=build /opt/nodeetitor/ /opt/nodeeditor/
+COPY --from=build /opt/nodeeditor/ /opt/nodeeditor/
 
 USER root
 RUN apk add --no-cache --virtual nodeeditor-runtime-dependencies \
