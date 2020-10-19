@@ -11,7 +11,7 @@ RUN apk add --no-cache --virtual nodeeditor-runtime-dependencies \
     mesa-dri-swrast
 
 COPY --from=build /nodeeditor/build/bin/ /opt/nodeeditor/bin/
-COPY --from=build /opt/nodeeditor/lib64/* /usr/lib/
+COPY --from=build /opt/nodeeditor/lib/* /usr/lib/
 COPY --from=build /opt/nodeeditor/include/* /usr/include/
 
 USER xpra
