@@ -1,4 +1,4 @@
-FROM alpine as build
+FROM arm32v6/alpine as build
 
 RUN apk add --no-cache --virtual nodeeditor-build-dependencies \
     git \
