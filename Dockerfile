@@ -1,6 +1,6 @@
-FROM 0x01be/nodeeditor:build as build
+FROM 0x01be/nodeeditor:build-arm32v6 as build
 
-FROM 0x01be/xpra
+FROM 0x01be/xpra:arm32v6
 
 COPY --from=build /opt/nodeeditor/ /opt/nodeeditor/
 
